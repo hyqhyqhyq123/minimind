@@ -37,6 +37,22 @@ def Logger(content):
         print(content)
 
 
+def resolve_reward_model_path(path: str) -> str:
+    """
+    将相对路径解析为绝对路径，供 transformers 识别本地目录。
+    默认的 ../../xxx 若以 repo id 传入会触发 HFValidationError。
+    """
+    if os.path.isdir(path):
+        return os.path.abspath(path)
+    trainer_dir = os.path.dirname(os.path.abspath(__file__))
+    joined = os.path.normpath(os.path.join(trainer_dir, path))
+    if os.path.isdir(joined):
+        return joined
+    if path.startswith(".") or ".." in path:
+        return joined
+    return path
+
+
 def get_lr(current_step, total_steps, lr):
     return lr*(0.1 + 0.45*(1 + math.cos(math.pi * current_step / total_steps)))
 

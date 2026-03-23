@@ -1090,17 +1090,17 @@ We select the small and high-quality InternLM2-1.8B-Reward
 ([ModelScope](https://modelscope.cn/models/Shanghai_AI_Laboratory/internlm2-1_8b-reward) | [HuggingFace](https://huggingface.co/internlm/internlm2-1_8b-reward))
 as the base reward model.
 
-After downloading the reward model, it needs to be placed in the **same level directory** as the minimind project. The recommended structure is:
+After downloading the reward model, place it under the **MiniMind project root** (same level as `trainer/`, `out/`). Recommended layout:
 
 ```
-project/
-├── minimind/                    # MiniMind project
-│   ├── model/
+minimind/                        # MiniMind project root
+├── internlm2-1_8b-reward/       # Reward model (default ../internlm2-1_8b-reward relative to trainer/)
+│   ├── config.json
+│   ├── model.safetensors
 │   └── ...
-└── internlm2-1_8b-reward/       # Reward model (same level as minimind)
-    ├── config.json
-    ├── model.safetensors
-    └── ...
+├── model/
+├── trainer/
+└── ...
 ```
 
 <details>
